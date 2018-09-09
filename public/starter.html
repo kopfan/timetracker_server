@@ -17,6 +17,14 @@
                 socket.emit('messages', input_value);
             });
 
+             $('#start_timer_input').submit(function (event) {
+                event.preventDefault();
+
+                var input_value = $('#sender_timer_start').val();
+
+                socket.emit('messages', input_value);
+            });
+
 
             socket.on('news', function (data) {
                 console.log(data);
@@ -38,6 +46,14 @@
             <input name="message" id="message" type="text" maxlength="20">
             <input name="sender" id="sender" type="submit" value="new stage">
         </form>
+    </div>
+    <div id="start_timer" name="start_timer">
+        <h3>Start Timer</h3>
+        <form name="start_timer_input" id="start_timer_input">
+            <!-- <input name="timer_start" id="timer_start" type="text" hidden> -->
+            <input name="sender_timer_start" id="sender_timer_start" type="submit" value="timer_start">
+        </form>
+
     </div>
 </body>
 

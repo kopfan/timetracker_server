@@ -30,13 +30,24 @@ io.on('connection', function (socket) {
     
     socket.on('messages', function (data) {
         console.log("client data: >" + data + "<");
+
+        if(data=="timer_start"){
+            data+="_" + getServerTime();
+        }
+
         messages.push(data);
         //emit data to the original sender
         socket.emit('news', data);
         //emit data to all connected clients
         socket.broadcast.emit('news', data);
+
+
     });
     socket.on('disconnect', function () {
         console.log("Client disconnected.");
     });
 });
+
+function getServerTime(){
+    return Date.now();
+}
