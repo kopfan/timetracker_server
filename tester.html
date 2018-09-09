@@ -1,0 +1,44 @@
+<html>
+
+<head>
+    <title>Socket.io Test</title>
+    <script src="jquery-3.3.1.min.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+        $(document).ready(function () {
+
+            var socket = io.connect('http://localhost:8080');
+
+            $('#message_sender').submit(function (event) {
+                event.preventDefault();
+
+                var input_value = $('#message').val();
+
+                socket.emit('messages', input_value);
+            });
+
+
+            socket.on('news', function (data) {
+                console.log(data);
+                $('#messages').append("<li>" + data + "</li>");
+            });
+        });
+    </script>
+</head>
+
+<body>
+    <div id="chat_log" name="chat_log">
+        <ul id="messages" name="messages">
+            <h3>Chat Log</h3>
+        </ul>
+    </div>
+    <div id="chat_input" name="chat_input">
+        <h3>Input</h3>
+        <form name="message_sender" id="message_sender">
+            <input name="message" id="message" type="text" maxlength="20">
+            <input name="sender" id="sender" type="submit" value="new stage">
+        </form>
+    </div>
+</body>
+
+</html>

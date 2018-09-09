@@ -1,0 +1,46 @@
+<html>
+
+<head>
+    <title>Stages</title>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script>
+
+        $(document).ready(function () {
+
+            var socket = io.connect('http://localhost:8080/messages');
+            /*  console.log("TEST");
+ 
+             socket.on('stages', function(data){
+                 console.log(data.hello);
+             });
+              */
+
+            socket.on('connected', function(data){
+                console.log(data);
+            })
+
+            socket.emit('messages', "testmessage");
+
+            //$('#create_stage').hide();
+
+            /*   $('#create_stage').submit(function (e) {
+  
+                  var stage_name = $('#stage_name').val();
+                  console.log("Stage_Name: " + stage_name);
+                  socket.emit('stages', stage_name);
+              }); */
+
+        });
+
+    </script>
+</head>
+
+<body>
+    <form name="create_stage" id="create_stage">
+        <input type="text" maxlength="20" name="stage_name" id="stage_name" />
+        <button type="submit">senden</button>
+    </form>
+</body>
+
+</html>

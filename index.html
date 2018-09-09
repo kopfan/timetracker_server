@@ -1,0 +1,79 @@
+<html>
+
+<head>
+    <title>Node-Test</title>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+        $(document).ready(function () {
+
+            var socket = io.connect("http://localhost:8080");
+
+            //socket.on("connection", function () {
+            //socket.emit("pageReady", "test");
+            //});
+           
+            $("#stages").submit(function (event) {
+               
+                
+                var stage_name = $("#stage_name").val();
+                console.log("stage_name: " + stage_name);
+                socket.emit("addStage", stage_name);
+               
+
+               
+                //event.preventDefault();
+                
+            });
+
+             socket.on('addStage', function (d) {
+                    console.log("available stages: " + d);
+
+                    var stages = d;
+
+                    stages.forEach(element => {
+                        $('#list').append('<li>'+element+'</li>');
+                    });
+
+                });
+
+            /* socket.emit('testSocket1', "valueSocket1");
+ 
+             socket.on('testSocket1', function(d){
+                 console.log("ServerData " + d );
+             }); */
+
+            /* // Now create a new button element with the alert class. This button
+            // was created after the click listeners were applied above, so it
+            // will not have the same click behavior as its peers
+            $("<button class='alert'>Alert!</button>").appendTo(document.body);
+
+            // Sets up click behavior on all button elements with the alert class
+            // that exist in the DOM when the instruction was executed
+            $("button.alert").on("click", function () {
+                console.log("A button with the alert class was clicked!");
+            });
+
+            $("p.p1").on({
+                "click": function () { console.log("clicked!"); },
+                "mouseover": function () { console.log("hovered!"); }
+            }); */
+        });
+
+    </script>
+</head>
+
+<body>
+    <form name="stages" id="stages">
+        <input name="stage_name" id="stage_name" title="stage name" maxlength="30" type="text">
+        <input name="senden" id="senden" type="submit" value="senden">
+    </form>
+    <p>
+        <ul name="list" id="list">
+            <h1>mylist</h1>
+        </ul>
+
+    </p>
+</body>
+
+</html>
