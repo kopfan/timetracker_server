@@ -5,7 +5,9 @@ var path = require('path');
 
 app.use(express.static(path.join(__dirname, 'public')));
 
-server.listen(8080);
+server.listen(8080, function(){
+    console.log("Server ready.");
+});
 
 var messages = [];
 
@@ -15,6 +17,10 @@ app.get('/', function (req, res) {
 
 app.get('/starter', function(req, res){
     res.sendFile(__dirname + '/public/starter.html');
+});
+
+app.get('/finisher', function(req, res){
+    res.sendFile(__dirname + '/public/finisher.html');
 });
 
 io.on('connection', function (socket) {
@@ -31,16 +37,19 @@ io.on('connection', function (socket) {
     socket.on('messages', function (data) {
         console.log("client data: >" + data + "<");
 
+        messages.push(data);
+
         if(data=="timer_start"){
             data+="_" + getServerTime();
         }
+        if(data=="timer_finish"){
+            data+="_" + getServerTime();
+        }
 
-        messages.push(data);
         //emit data to the original sender
         socket.emit('news', data);
         //emit data to all connected clients
         socket.broadcast.emit('news', data);
-
 
     });
     socket.on('disconnect', function () {
