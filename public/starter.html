@@ -2,8 +2,11 @@
 
 <head>
     <title>Starter</title>
-    <script src="jquery-3.3.1.min.js"></script>
-    <script src="/socket.io/socket.io.js"></script>
+    <!-- script src="jquery-3.3.1.min.js"></script -->
+    <script src="/js/jquery.slim.min.js" ></script>
+    <script src="/js/socket.io.slim.js"></script>
+    <!--script src="/socket.io/socket.io.js"></script-->
+    <link rel="stylesheet" href="/css/bootstrap.min.css" >
     <script>
         $(document).ready(function () {
 
@@ -17,7 +20,9 @@
                 socket.emit('messages', input_value);
             });
 
-             $('#start_timer_input').submit(function (event) {
+            //handle form "start_timer" to trigger the start of a time tracking action
+            //todo: gets time back from server
+            $('#start_timer_input').submit(function (event) {
                 event.preventDefault();
 
                 var input_value = $('#sender_timer_start').val();
@@ -35,7 +40,7 @@
 </head>
 
 <body>
-    <div id="chat_log" name="chat_log">
+    <div class="jumbotron" id="chat_log" name="chat_log">
         <ul id="messages" name="messages">
             <h3>Starter - Chat Log</h3>
         </ul>
@@ -55,6 +60,11 @@
         </form>
 
     </div>
+
+
+<!--script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script-->
+<script src="/js/bootstrap.min.js" ></script>
+
 </body>
 
 </html>
