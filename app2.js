@@ -1,12 +1,24 @@
 var express = require('express'), app = express();
+var chalk = require('chalk'); //givin colors to output
+var debug = require('debug')('app2'); //giving debugging options e.g. DEBUG=* node app2.js
+var morgan = require('morgan');
 var server = require('http').Server(app);
 var io = require('socket.io')(server);
 var path = require('path');
 
+app.use(morgan('tiny'));
+/* use for full output for client requests
+app.use(morgan('combined'));
+*/
+
 app.use(express.static(path.join(__dirname, 'public')));
+app.use('/css',express.static(path.join(__dirname, '/node_modules/bootstrap/dist/css')));
+app.use('/js',express.static(path.join(__dirname, '/node_modules/bootstrap/dist/js')));
+app.use('/js',express.static(path.join(__dirname, '/node_modules/jquery/dist')));
+app.use('/js',express.static(path.join(__dirname, '/node_modules/socket.io-client/dist')));
 
 server.listen(8080, function(){
-    console.log("Server ready.");
+    debug(`Server ${chalk.green('ready')}`);
 });
 
 var messages = [];
