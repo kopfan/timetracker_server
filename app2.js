@@ -3,7 +3,7 @@ const express = require('express');
 const app = express();
 const chalk = require('chalk'); // givin colors to output
 const debug = require('debug')('app2'); // giving debugging options e.g. DEBUG=* node app2.js
-const morgan = require('morgan');
+const morgan = require('morgan'); // controls logging output
 const server = require('http').Server(app);
 const io = require('socket.io')(server);
 const path = require('path');
@@ -39,6 +39,10 @@ app.get('/finisher', (req, res) => {
   res.sendFile(`${__dirname}/public/finisher.html`);
 });
 
+function getServerTime() {
+  return Date.now();
+}
+
 io.on('connection', (socket) => {
   console.log('New client connected.');
   if (messages.length == 0) {
@@ -54,10 +58,10 @@ io.on('connection', (socket) => {
 
     messages.push(data);
 
-    if (data == 'timer_start') {
+    if (data === 'timer_start') {
       data += `_${getServerTime()}`;
     }
-    if (data == 'timer_finish') {
+    if (data === 'timer_finish') {
       data += `_${getServerTime()}`;
     }
 
@@ -70,7 +74,3 @@ io.on('connection', (socket) => {
     console.log('Client disconnected.');
   });
 });
-
-function getServerTime() {
-  return Date.now();
-}
