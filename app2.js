@@ -18,6 +18,9 @@ app.use('/css', express.static(path.join(__dirname, '/node_modules/bootstrap/dis
 app.use('/js', express.static(path.join(__dirname, '/node_modules/bootstrap/dist/js')));
 app.use('/js', express.static(path.join(__dirname, '/node_modules/jquery/dist')));
 app.use('/js', express.static(path.join(__dirname, '/node_modules/socket.io-client/dist')));
+app.set('views', './src/views');
+// app.set('view engine', 'pug'); // use template engine pug
+app.set('view engine', 'ejs'); // use template engine ejs
 
 const port = process.env.PORT || 8080;
 server.listen(port, () => {
@@ -28,7 +31,8 @@ server.listen(port, () => {
 const messages = [];
 
 app.get('/', (req, res) => {
-  res.sendFile(`${__dirname}/tester.html`);
+  // res.sendFile(`${__dirname}/tester.html`);
+  res.render('index', { list: ['a', 'b'], title: 'Library' }); // connection to app.set 'views' and pug
 });
 
 app.get('/starter', (req, res) => {

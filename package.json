@@ -24,6 +24,7 @@
     "morgan": "1.9.1",
     "nodemon": "1.18.4",
     "popper": "1.0.1",
+    "pug": "2.0.3",
     "redis": "^2.8.0",
     "socket.io": "2.1.1",
     "url": "^0.11.0"
@@ -34,8 +35,10 @@
     "eslint-plugin-import": "2.14.0"
   },
   "nodemonConfig": {
-    "restartable":"rs",
-    "ignore":["node_modules/**/node_modules"],
+    "restartable": "rs",
+    "ignore": [
+      "node_modules/**/node_modules"
+    ],
     "delay": "2500",
     "env": {
       "NODE_ENV": "development",
