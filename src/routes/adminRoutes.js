@@ -11,9 +11,17 @@ function router(nav) {
   // setting up dummy array with books for the books example
   const books = [
     {
-      title: 'My first book',
-      author: 'Jan Orbanz',
-      genre: 'Belletristik',
+      title: 'War and Peace',
+      author: 'Lev Tolstoy',
+      genre: 'Historical Fiction',
+      bookId: 656,
+      read: false
+    },
+    {
+      title: 'les Miserables',
+      author: 'Victor Hugo',
+      genre: 'Historical Fiction',
+      bookId: 24280,
       read: false
     },
     {

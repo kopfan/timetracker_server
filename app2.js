@@ -5,10 +5,10 @@ const chalk = require('chalk'); // givin colors to output
 const debug = require('debug')('app2'); // giving debugging options e.g. DEBUG=* node app2.js
 const morgan = require('morgan'); // controls logging output
 const server = require('http').Server(app);
-const io = require('socket.io')(server);
+// const io = require('socket.io')(server);
 const path = require('path');
 const bodyParser = require('body-parser');
-const passport = require('passport');
+// const passport = require('passport');
 const cookieParser = require('cookie-parser');
 const session = require('express-session');
 
@@ -21,7 +21,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(session({ secret: 'library' }));
 
-// require('./src/config/passport.js')(app);
+require('./src/config/passport.js')(app);
 
 app.use(express.static(path.join(__dirname, 'public')));
 app.use('/css', express.static(path.join(__dirname, '/node_modules/bootstrap/dist/css')));
@@ -34,15 +34,10 @@ app.set('view engine', 'ejs'); // use template engine ejs
 
 const port = process.env.PORT || 8080;
 
-server.listen(port, () => {
-  debug(`Server ${chalk.green('ready')}`);
-  debug(`Server ${chalk.green('running on port ')} ${chalk.red(port)}`);
-});
-
-const messages = [];
+// const messages = [];
 
 const nav = [{ link: '/books', title: 'Book' },
-{ link: '/authors', title: 'Author' }];
+  { link: '/authors', title: 'Author' }];
 
 // setting up a router for link routing
 const bookRouter = require('./src/routes/bookRoutes')(nav);
@@ -53,18 +48,20 @@ app.use('/books', bookRouter); // end of use bookRouter: sets the base folder fo
 app.use('/admin', adminRouter); // end of use adminRouter: sets the base folder for boorouter to /admin
 app.use('/auth', authRouter);
 
+
 app.get('/', (req, res) => {
   // res.sendFile(`${__dirname}/tester.html`);
   res.render(
     'index',
     {
       nav: [{ link: '/books', title: 'Books' },
-      { link: '/authors', title: 'authors' }],
+        { link: '/authors', title: 'authors' }],
       title: 'Library'
     }
   ); // connection to app.set 'views' and pug
 });
 
+/*
 app.get('/starter', (req, res) => {
   res.sendFile(`${__dirname}/public/starter.html`);
 });
@@ -107,4 +104,9 @@ io.on('connection', (socket) => {
   socket.on('disconnect', () => {
     console.log('Client disconnected.');
   });
+});
+*/
+server.listen(port, () => {
+  debug(`Server ${chalk.green('ready')}`);
+  debug(`Server ${chalk.green('running on port ')} ${chalk.red(port)}`);
 });
